@@ -1,30 +1,39 @@
-import tkinter as tk
-from tkinter import messagebox
+from abc import ABC, abstractmethod
 
-# إنشاء نافذة التطبيق
-window = tk.Tk()
-window.title("واجهة مستخدم بسيطة")
-window.geometry("400x200")
+# تعريف الواجهة (كلاس مجرد)
+class Animal(ABC):
+    @abstractmethod
+    def make_sound(self):
+        pass
 
-# دالة عند الضغط على الزر
-def say_hello():
-    user_name = entry_name.get()
-    if user_name:
-        messagebox.showinfo("مرحبًا!", f"مرحبًا، {user_name}!")
-    else:
-        messagebox.showwarning("تحذير", "الرجاء إدخال اسمك.")
+    @abstractmethod
+    def move(self):
+        pass
 
-# إضافة تسمية
-label = tk.Label(window, text="الرجاء إدخال اسمك:", font=("Arial", 12))
-label.pack(pady=10)
+# كلاس يطبق الواجهة Animal
+class Dog(Animal):
+    def make_sound(self):
+        print("The dog barks: Woof Woof!")
 
-# إضافة حقل إدخال
-entry_name = tk.Entry(window, font=("Arial", 12))
-entry_name.pack(pady=5)
+    def move(self):
+        print("The dog runs.")
 
-# إضافة زر
-button = tk.Button(window, text="قل مرحبًا", command=say_hello, font=("Arial", 12))
-button.pack(pady=10)
+# كلاس يطبق الواجهة Animal
+class Cat(Animal):
+    def make_sound(self):
+        print("The cat meows: Meow Meow!")
 
-# بدء التطبيق
-window.mainloop()
+    def move(self):
+        print("The cat jumps.")
+
+# الكود الرئيسي
+if __name__ == "__main__":
+    dog = Dog()
+    cat = Cat()
+
+    # استدعاء الدوال لكل من الكائنات
+    dog.make_sound()
+    dog.move()
+
+    cat.make_sound()
+    cat.move()
